@@ -1,0 +1,39 @@
+	 /* Utility */
+	.centered { text-align: center !important; }
+	.inline{ display: inline !important; }
+	.margin10{ margin: 10px; }
+	.padding10{ padding: 10px; }
+	.margin0{ margin: 0px; }
+	.padding0{ padding: 0px; }
+	.footer {
+	  margin-top: 45px;
+	  padding: 35px 35px;
+	  border-top: 1px solid ##e5e5e5;
+	}
+	.footer p {
+	  margin-bottom: 0;
+	  color: ##555;
+	}
+
+	/*body{ margin-top: 75px; }*/
+	/*body{ margin-top: 15px; }*/
+
+	.panel-editor {
+		height:38vh;
+	}
+
+	.panel-editor .panel-body {
+		margin: 0;
+		padding: 0;
+	}
+
+	/*	.fullscreen-editor { 
+		height: 600px;
+		width: 1000px;
+    }*/
+
+	.tab-pane{
+		height:75vh;
+		overflow-y:auto;
+		overflow-x:hidden;
+	}
