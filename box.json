@@ -58,9 +58,7 @@
         "cbdebugger":"modules\\cbdebugger"
     },
     "ignore":[
-        "**/.*",
-        "test",
-        "tests"
+        "**/.*"
     ],
     "testbox":{
         "runner":[
