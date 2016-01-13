@@ -1,5 +1,5 @@
 *.dropbox
 coldbox
 db
-modules
-!modules/about
+/modules/*
+!/modules/about

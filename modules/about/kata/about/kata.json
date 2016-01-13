@@ -1,0 +1,9 @@
+{
+	"id": "about",
+	"module": "about",
+	"title": "About CF Dojo",
+	"solutionFile": "Foo.cfc",
+	"testFile": "FooTest.cfc",
+	"solutionTestFile": "FooTest.cfc",
+	"dependencies": []
+}
