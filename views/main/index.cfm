@@ -5,8 +5,9 @@
 	<cfloop list="#structKeyList(prc.modules)#" index="key">	
 		<cfif !listFindNoCase("cbdebugger,about",key)>
 			<a href="/index.cfm/#key#/" class="list-group-item">
-			<h4 class="list-group-item-heading">#prc.modules[key].title#</h4>
-			<p class="list-group-item-text">#prc.modules[key].description#</p>
+				<p class="list-group-item-text pull-right"><em>#prc.modules[key].author#</em></p>
+				<h4 class="list-group-item-heading">#prc.modules[key].title#</h4>
+				<p class="list-group-item-text">#prc.modules[key].description#</p>
 			</a>
 		</cfif>
 	</cfloop>

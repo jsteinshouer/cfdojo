@@ -48,12 +48,27 @@ component output="false" singleton="true" {
 
 	/**
 	*
-	* Get modules records from the database
+	* Get training modules
 	*
 	*/
-	public query function getModules() {
+	public array function getModules() {
+
+		var modules = [];
+
+		for (var module in cbModuleService.getLoadedModules()) {
+			/* Does this module contain a kata setting? */
+			if (structKeyExists(cbModules[module].settings,"kata") && isArray(cbModules[module].settings.kata) && module != "about") {
+
+				modules.append({
+					"id" = module,
+					"title" = cbModules[module].title,
+					"description" = cbModules[module].description,
+					"author" = cbModules[module].author
+				});
+			}
+		}
 		
-		return moduleGateway.getModules();
+		return modules;
 	}
 
 	/**
