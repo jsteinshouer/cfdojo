@@ -14,6 +14,7 @@ component output="false" singleton="true" {
 	property name="fileService" inject="util.FileService";
 	property name="testService" inject="kata.tests.TestService";
 	property name="solutionService" inject="kata.solutions.SolutionService";
+	property name="moduleService" inject="modules.moduleService";
 
 	public function init() {
 		return this;
@@ -120,21 +121,8 @@ component output="false" singleton="true" {
 	*
 	*/
 	public any function complete(required kata) {
-		
-		queryExecute("
-				UPDATE kata
-				SET
-					complete = 1
-				WHERE
-					id = :id
-					AND f_module_id = :module
-			",
-			{
-				id = kata.getId(),
-				module = kata.getModule()
-			},
-			{datasource = dsn.name}
-		);
+
+		moduleService.completeKata(kata.getId(),kata.getModule());
 	}
 	
 

@@ -1,10 +1,10 @@
 /**
 *
-* Gateway object
+* Gateway object for training modules
 * 
-* @file  models.kata.KataGateway.cfc
+* @file  models.modules.ModuleGateway.cfc
 * @author  Jason Steinshouer
-* @description Kata gateway object
+* @description Gateway object for training modules
 *
 */
 component output="false" singleton="true" {
@@ -15,7 +15,28 @@ component output="false" singleton="true" {
 		return this;
 	}
 
-	public any function getByModule(required module) {
+
+	public any function getModules() {
+
+		var qModules = queryExecute("
+				SELECT
+					id,
+					title,
+					description
+				FROM
+					modules
+				ORDER BY display_order	
+			",
+			{},
+			{datasource = dsn.name}
+		);
+
+		return qModules;
+	}
+	
+	
+
+	public any function getKata(required module) {
 
 		var qKata = queryExecute("
 				SELECT

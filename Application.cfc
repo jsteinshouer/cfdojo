@@ -56,7 +56,10 @@ component {
 	// application start
 	public boolean function onApplicationStart(){
 
-		setup();
+		/* Delete sandbox db when app loads */
+		if (directoryExists("./db/sandbox")) {
+			directoryDelete("./db/sandbox",true);
+		}
 
 		application.cbBootstrap = new coldbox.system.Bootstrap( COLDBOX_CONFIG_FILE, COLDBOX_APP_ROOT_PATH, COLDBOX_APP_KEY, COLDBOX_APP_MAPPING );
 		application.cbBootstrap.loadColdbox();
@@ -92,45 +95,6 @@ component {
 
 	public boolean function onMissingTemplate( template ){
 		return application.cbBootstrap.onMissingTemplate( argumentCollection=arguments );
-	}
-
-	/**
-	*
-	* Application setup
-	*
-	*/
-	private void function setup() {
-
-		/* Delete sandbox db when app loads */
-		if (directoryExists("./db/sandbox")) {
-			directoryDelete("./db/sandbox",true);
-		}
-
-		/* Initialize DB */
-		queryExecute("
-
-				CREATE TABLE IF NOT EXISTS modules (
-					id VARCHAR(10) PRIMARY KEY, 
-					title VARCHAR(50),
-					description VARCHAR(150)
-				);
-
-				CREATE TABLE IF NOT EXISTS kata(
-					id VARCHAR(20), 
-					title VARCHAR(100),
-					description VARCHAR(150),
-					f_module_id VARCHAR(10),
-					complete bit default 0,
-					display_order int default 0,
-					PRIMARY KEY (id, f_module_id)
-				);
-
-
-			",
-			{},
-			{datasource = "cfdojo"}
-		);
-		
 	}
 	
 

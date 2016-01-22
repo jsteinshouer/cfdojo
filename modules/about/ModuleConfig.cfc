@@ -71,7 +71,14 @@ component {
 
 		// module settings - stored in modules.name.settings
 		settings = {
-
+			kata = [
+				{
+					id = "about",
+					title = "About CF Dojo",
+					description = "About CF Dojo",
+					path = "kata/about"
+				}
+			]
 		};
 
 		// Layout Settings
@@ -87,9 +94,9 @@ component {
 		// SES Routes
 		routes = [
 			// Module Entry Point
-			{pattern="/", handler="About",action="index"},
-			{pattern="/run", handler="About",action="run"},
-			{pattern="/submit", handler="About",action="submit"},
+			{pattern="/", handler="kata",action="index"},
+			{pattern="/run", handler="kata",action="run"},
+			{pattern="/submit", handler="kata",action="submit"},
 			// Convention Route
 			{pattern="/:handler/:action?"}
 		];
