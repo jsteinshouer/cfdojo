@@ -14,13 +14,13 @@ component {
 	/* Setup a sandbox for kata to use */
 	this.datasources["KATA_SANDBOX"] = {
 		  class: 'org.h2.Driver'
-		, connectionString: 'jdbc:h2:./db/sandbox/sandbox;MODE=MSSQLServer'
+		, connectionString: 'jdbc:h2:#getDirectoryFromPath( getCurrentTemplatePath() )#/db/sandbox/sandbox;MODE=MSSQLServer'
 	};
 
 	/* Setup an application datasource */
 	this.datasources["cfdojo"] = {
 		  class: 'org.h2.Driver'
-		, connectionString: 'jdbc:h2:./db/app/cfdojo;MODE=MSSQLServer'
+		, connectionString: 'jdbc:h2:#getDirectoryFromPath( getCurrentTemplatePath() )#/db/app/cfdojo;MODE=MSSQLServer'
 	};
 
 	/* Setup RAM directories and file structure */
@@ -57,8 +57,8 @@ component {
 	public boolean function onApplicationStart(){
 
 		/* Delete sandbox db when app loads */
-		if (directoryExists("./db/sandbox")) {
-			directoryDelete("./db/sandbox",true);
+		if (directoryExists("#getDirectoryFromPath( getCurrentTemplatePath() )#/db/sandbox")) {
+			directoryDelete("#getDirectoryFromPath( getCurrentTemplatePath() )#/db/sandbox",true);
 		}
 
 		application.cbBootstrap = new coldbox.system.Bootstrap( COLDBOX_CONFIG_FILE, COLDBOX_APP_ROOT_PATH, COLDBOX_APP_KEY, COLDBOX_APP_MAPPING );
