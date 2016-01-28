@@ -11,9 +11,11 @@ component output="false" singleton="true" {
 
 	property name="dsn" inject="coldbox:datasource:cfdojo";
 	property name="beanFactory" inject="wirebox";
+	property name="interceptorService" inject="coldbox:interceptorService";
 	property name="fileService" inject="util.FileService";
 	property name="testService" inject="kata.tests.TestService";
 	property name="solutionService" inject="kata.solutions.SolutionService";
+	property name="moduleService" inject="modules.moduleService";
 	property name="moduleService" inject="modules.moduleService";
 
 	public function init() {
@@ -107,8 +109,30 @@ component output="false" singleton="true" {
 
 		var results = testService.runSolutionTests(kata);
 
-		/* Mark the kata as complete if all tests pass */
+		/* Flag if complete */
 		if (results.specs.len() eq results.totalPassed) {
+			var isComplete = true;
+		}
+		else {
+			var isComplete = false;
+		}
+
+		/* Announce async submit event */
+		interceptorService.processState(
+			state = "onKataSubmit" , 
+			interceptData = {
+				time = now(),
+				success = isComplete,
+				module = kata.getModule(),
+				kata = kata.getId(),
+				solution = kata.getSolution().getContent(),
+				testResults = results
+			},
+			asyncAll = true
+		);
+
+		/* Mark the kata as complete if all tests pass */
+		if (isComplete) {
 			complete(kata);
 		}
 
@@ -120,7 +144,7 @@ component output="false" singleton="true" {
 	* Keep track of completed kata
 	*
 	*/
-	public any function complete(required kata) {
+	private any function complete(required kata) {
 
 		moduleService.completeKata(kata.getId(),kata.getModule());
 	}

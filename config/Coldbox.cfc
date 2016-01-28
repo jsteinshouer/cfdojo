@@ -92,7 +92,7 @@
 		//Interceptor Settings
 		interceptorSettings = {
 			throwOnInvalidStates = false,
-			customInterceptionPoints = ""
+			customInterceptionPoints = "onKataSubmit"
 		};
 
 		//Register interceptors as an array, we need order
