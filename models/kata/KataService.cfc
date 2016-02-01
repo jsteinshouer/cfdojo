@@ -122,10 +122,11 @@ component output="false" singleton="true" {
 			state = "onKataSubmit" , 
 			interceptData = {
 				time = now(),
-				success = isComplete,
+				complete = isComplete,
 				module = kata.getModule(),
 				kata = kata.getId(),
 				solution = kata.getSolution().getContent(),
+				test = kata.getSolutionTests().getContent(),
 				testResults = results
 			},
 			asyncAll = true
