@@ -35,15 +35,22 @@ component extends="coldbox.system.EventHandler" singleton="true" accessors="true
 	/**
 	* Runs the kata tests and returns the results as json
 	*/
-	public function run( event, rc, prc ){
+	public function run( event, rc, prc ) {
 
-		var results = kataService.run(
-			configFile = prc.configFile,
-			content = rc.content,
-			testContent = rc.testContent
-		);
+		try {
 
-		event.renderData( type="json", data=results);
+			var results = kataService.run(
+				configFile = prc.configFile,
+				content = rc.content,
+				testContent = rc.testContent
+			);
+
+			event.renderData( type="json", data=results);
+
+		}
+		catch(e) {
+			event.renderData( type="json", data={"message" = e.message}, statusCode=500);
+		}
 	}
 
 	/**
@@ -51,12 +58,19 @@ component extends="coldbox.system.EventHandler" singleton="true" accessors="true
 	*/
 	public function submit( event, rc, prc ){
 
-		var results = kataService.submit(
-			configFile = prc.configFile,
-			content = rc.content
-		);
+		try {
 
-		event.renderData( type="json", data=results );
+			var results = kataService.submit(
+				configFile = prc.configFile,
+				content = rc.content
+			);
+
+			event.renderData( type="json", data=results );
+
+		}
+		catch(e) {
+			event.renderData( type="json", data={"message" = e.message}, statusCode=500);
+		}
 	}
 
 	

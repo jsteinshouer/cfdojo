@@ -126,7 +126,11 @@ $(document).ready(function() {
 				content: editor.getValue(),
 				testContent: testEditor.getValue()
 			}
-		}).done(displayResults);
+		}).done(displayResults).fail(function(data){
+			$(".loading").addClass("hidden");
+			$(".text-danger").html("<strong>Error: </strong>" + data.responseJSON.message);
+			$(".text-danger").removeClass("hidden");
+		});
 	};
 
 	$("button.run-tests").on("click", function(e) {
