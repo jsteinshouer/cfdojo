@@ -34,6 +34,7 @@
 						</div>
 						<div class="panel-body"></div>
 					</div>
+					<div class="output"></div>
 				</div>
 			</div>
 		</div>

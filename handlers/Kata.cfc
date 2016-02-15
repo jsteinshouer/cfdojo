@@ -45,6 +45,12 @@ component extends="coldbox.system.EventHandler" singleton="true" accessors="true
 				testContent = rc.testContent
 			);
 
+			/* Get any output for debugging purposes */
+			var output = getPageContext().getOut().toString();
+			if (trim(output).len()) {
+				results["output"] = trim(output);
+			}
+
 			event.renderData( type="json", data=results);
 
 		}
@@ -64,6 +70,13 @@ component extends="coldbox.system.EventHandler" singleton="true" accessors="true
 				configFile = prc.configFile,
 				content = rc.content
 			);
+
+			/* Get any output for debugging purposes */
+			var output = getPageContext().getOut().toString();
+			if (trim(output).len()) {
+				results["output"] = trim(output);
+			}
+
 
 			event.renderData( type="json", data=results );
 

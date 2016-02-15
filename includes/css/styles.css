@@ -37,3 +37,7 @@
 		overflow-y:auto;
 		overflow-x:hidden;
 	}
+
+	.output-content {
+		overflow-x: scroll;
+	}

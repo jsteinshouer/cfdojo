@@ -76,36 +76,46 @@ $(document).ready(function() {
 			$(".text-danger").removeClass("hidden");
 		}
 		else {
-			$(".panel-success").find(".badge").text(data.totalPassed);
-			$(".panel-danger").find(".badge").text((data.totalFailed + data.totalError));
 
-			$(".panel-danger").find(".panel-body").html("");
-			$(".panel-success").find(".panel-body").html("");
+			if (data.totalPassed != undefined) {
+				$(".panel-success").find(".badge").text(data.totalPassed);
+				$(".panel-danger").find(".badge").text((data.totalFailed + data.totalError));
 
-			for (var i = data.specs.length - 1; i >= 0; i--) {
-				if (data.specs[i].status === "Failed" || data.specs[i].status === "Error") {
-					var elem = $("<div>" + data.specs[i].name + "</div>");
-					if (data.specs[i].errorMessage.length > 0) {
-						var msg = $("<div class=\"container\"><strong>Error: </strong>" + data.specs[i].errorMessage + "</div>");
+				$(".panel-danger").find(".panel-body").html("");
+				$(".panel-success").find(".panel-body").html("");
+
+				for (var i = data.specs.length - 1; i >= 0; i--) {
+					if (data.specs[i].status === "Failed" || data.specs[i].status === "Error") {
+						var elem = $("<div>" + data.specs[i].name + "</div>");
+						if (data.specs[i].errorMessage.length > 0) {
+							var msg = $("<div class=\"container\"><strong>Error: </strong>" + data.specs[i].errorMessage + "</div>");
+						}
+						else {
+							var msg = $("<div class=\"container\">" + data.specs[i].failMessage + "</div>");
+						}
+						elem.append(msg);
+						$(".panel-danger").find(".panel-body").append(elem);
 					}
 					else {
-						var msg = $("<div class=\"container\">" + data.specs[i].failMessage + "</div>");
+						$(".panel-success").find(".panel-body").append($("<div>" + data.specs[i].name + "</div>"));
 					}
-					elem.append(msg);
-					$(".panel-danger").find(".panel-body").append(elem);
-				}
-				else {
-					$(".panel-success").find(".panel-body").append($("<div>" + data.specs[i].name + "</div>"));
-				}
-			};
+				};
 
-			if ($(".panel-danger").find(".panel-body").html().length > 0){
-				$(".panel-danger").removeClass("hidden");
-			}
+				if ($(".panel-danger").find(".panel-body").html().length > 0){
+					$(".panel-danger").removeClass("hidden");
+				}
 
-			if ($(".panel-success").find(".panel-body").html().length > 0){
-				$(".panel-success").removeClass("hidden");
+				if ($(".panel-success").find(".panel-body").html().length > 0){
+					$(".panel-success").removeClass("hidden");
+				}
 			}
+			else {
+				$(".output").html("<div style=\"margin-bottom: 10px\">Output:</div><div>" + data + "</div>");
+			}
+		}
+
+		if (data.output && data.output.length > 0) {
+			$(".output").html("<div style=\"margin-bottom: 10px\">Output:</div><div>" + data.output + "</div>");
 		}
 	};
 
@@ -118,6 +128,7 @@ $(document).ready(function() {
 		$(".panel-danger").addClass("hidden");
 		$(".panel-success").addClass("hidden");
 		$(".loading").removeClass("hidden");
+		$(".output").html("");
 
 		$.ajax({
 			url: url,
@@ -174,6 +185,7 @@ $(document).ready(function() {
 
 		$("#output-tab a").tab("show");
 		$("#output-tab").addClass("active");
+		$(".output").html("");
 
 		$(".panel-danger").addClass("hidden");
 		$(".panel-success").addClass("hidden");
